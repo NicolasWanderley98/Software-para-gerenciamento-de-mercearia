@@ -1,0 +1,7 @@
+baanana|5|frutas|cario|marcos|3|06/05/2025
+baanana|5|frutas|cario|marcos|3|06/05/2025
+baanana|5|frutas|cario|marcos|3|06/05/2025
+baanana|5|frutas|caio|marcos|3|06/05/2025
+baanana|5|frutas|caio|marcos|3|06/05/2025
+baanana|5|frutas|caio|marcos|3|06/05/2025
+banana|5|frutas|caio|marcos|3|06/05/2025
