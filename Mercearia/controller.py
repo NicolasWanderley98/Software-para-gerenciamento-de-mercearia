@@ -178,5 +178,32 @@ class ControllerVenda:
                 print('Venda realizada com sucesso')
                 return valorCompra
 
+    def relatorioProdutos(self):
+        vendas = DaoVenda.ler()
+        produtos = []
+        for i in vendas:
+            nome = i.itnsVendido.nome
+            quantidade = i.quantidadeVendida
+            tamanho = list(filter(lambda x: x['produto'] == nome,produtos))
+            if len(tamanho)>0:
+                produtos = list(map(lambda x :{'produto': nome, 'quantidade': x['quantidade'] + quantidade}
+                                    if (x['produto'] == nome) else(x), produtos))
+            else:
+                produtos.append({'produto': nome, 'quantidade': quantidade})
+
+            ordenado = sorted(produtos, key=lambda k: k['quantidade'], reverse=True)
+
+            print('Esses são os produtos mais vendidos')
+            for i in ordenado:
+                print(f'==========Produto [{a}]==========')
+                print(f'Produto: {i['produto']}\n'
+                      f'Quantidade: {i['quantidade']}\n')
+                a += 1
+
+
+
+#a = ControllerEstoque()
+#a.cadastrarProduto('abacaxi', '5', 'Verduras', '20')
+
 a = ControllerVenda()
-a.cadastrarVenda('maca','joao','caio', 2)
+a.cadastrarVenda('banana','joao', 'caio', 2)
