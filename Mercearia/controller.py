@@ -28,11 +28,18 @@ class ControllerCategoria:
                     del x[i]
                     break
             print('Categoria removida com sucesso')
-        #TODO: COLOCAR SEM CATEGORIA NO ESTOQUE
             with open('categoria.txt', 'w') as arq:
                 for i in x:
                     arq.writelines(i.categoria)
                     arq.writelines('\n')
+
+        estoque = DaoEstoque.ler()
+
+        estoque = list(map(lambda x: Estoque(Produtos(x.produto.nome, x.produto.preco, "Sem categoria"), x.quantidade) if (x.produto.categoria == categoriaRemover) else(x), estoque))
+        with open('estoque.txt', 'w') as arq:
+            for i in estoque:
+                arq.writelines(i.produto.nome + "|" + i.produto.preco + "|" + i.produto.categoria + "|" + str(i.quantidade))
+                arq.writelines("\n")
 
     def alterarCategoria(self, categoriaAlterar, categoriaAlterada):
         x = DaoCategoria.ler()
@@ -44,7 +51,16 @@ class ControllerCategoria:
             if len(cat1) == 0:
                 x = list(map(lambda x: Categoria(categoriaAlterada) if(x.categoria == categoriaAlterar) else(x) ,x))
                 print('A alteração foi efetuada com sucesso')
-                #TODO: ALTERAR A CATEGORIA TAMBEM DO ESTOQUE
+                estoque = DaoEstoque.ler()
+
+                estoque = list(
+                    map(lambda x: Estoque(Produtos(x.produto.nome, x.produto.preco, categoriaAlterada), x.quantidade) if (
+                                x.produto.categoria == categoriaAlterar) else (x), estoque))
+                with open('estoque.txt', 'w') as arq:
+                    for i in estoque:
+                        arq.writelines(i.produto.nome + "|" + i.produto.preco + "|" + i.produto.categoria + "|" + str(
+                            i.quantidade))
+                        arq.writelines("\n")
             else:
                 print('A categoria para qual deseja alterar já existe')
 
@@ -246,7 +262,7 @@ class ControllerFornecedor:
         if len(est) > 0:
             est = list(filter(lambda x: x.cnpj == novoCnpj, x))
             if len(est) == 0:
-                x = list(map(lambda x: Fornecedor(novoNome, novoCnpj, novoTelefone, novoCategoria) if(x.nome)))
+                x = list(map(lambda x: Fornecedor(novoNome, novoCnpj, novoTelefone, novoCategoria) if x.nome else x, lista))
             else:
                 print('Cnpj já existe')
         else:
@@ -374,9 +390,11 @@ class ControllerFuncionario:
 
         est = list(filter(lambda x: x.nome == nomeAlterar, x))
         if len(est) > 0:
-                x = list(map(lambda x: Funcionario(novoClt, novoNome, novoTelefone, novoCpf, novoEmail, novoEndereco
-                        x.nome == nomeAlterar) else (x), x))
-         else:
+                x = list(map(lambda x: Funcionario(
+                    novoClt, novoNome, novoTelefone, novoCpf, novoEmail, novoEndereco
+                    ) if x.nome else x, lista))
+
+        else:
              print('O funcionario que deseja alterar não existe')
 
         with open('funcionarios.txt', 'w') as arq:
@@ -427,5 +445,5 @@ class ControllerFuncionario:
 #a = ControllerVenda()
 #a.cadastrarVenda('abacaxi','joao', 'caio', 2)
 
-a = ControllerVenda()
-a.mostrarVenda('20/05/2025','21/05/2025')
+#a = ControllerCategoria()
+#a.alterarCategoria("Verduras", "Frios")

@@ -1,6 +1,0 @@
-banana|5|Verduras|joao|caio|2|23/05/2025
-banana|5|Verduras|joao|caio|2|23/05/2025
-banana|5|Verduras|joao|caio|2|23/05/2025
-banana|5|Verduras|joao|caio|2|23/05/2025
-maca|5|Verduras|joao|caio|2|21/05/2025
-abacaxi|5|Verduras|joao|caio|2|20/05/2025
