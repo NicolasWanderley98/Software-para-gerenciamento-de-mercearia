@@ -160,6 +160,7 @@ class ControllerVenda:
         temp = []
         existe = False
         quantidade = False
+        quantidadeVendida = int(quantidadeVendida)
         for i in x:
             if existe == False:
                 if i.produto.nome == nomeProduto:
@@ -244,7 +245,7 @@ class ControllerFornecedor:
     def cadastrarFornecedor(self, nome, cnpj, telefone, categoria):
         x = DaoFornecedor.ler()
         listaCnpj = list(filter(lambda x: x.cnpj == cnpj, x))
-        listaTelefone = list(filter(lambda  x: x.cnpj == cnpj, x))
+        listaTelefone = list(filter(lambda  x: x.telefone == telefone, x))
         if len(listaCnpj) > 0:
             print('O cnpj já existe')
         elif len(listaTelefone) > 0:
@@ -262,7 +263,7 @@ class ControllerFornecedor:
         if len(est) > 0:
             est = list(filter(lambda x: x.cnpj == novoCnpj, x))
             if len(est) == 0:
-                x = list(map(lambda x: Fornecedor(novoNome, novoCnpj, novoTelefone, novoCategoria) if x.nome else x, lista))
+                x = list(map(lambda x: Fornecedor(novoNome, novoCnpj, novoTelefone, novoCategoria) if x.nome == nomeAlterar else x,x))
             else:
                 print('Cnpj já existe')
         else:
@@ -355,7 +356,7 @@ class ControllerCliente:
             print('Cliente removido com sucesso')
 
     def mostrarClientes(self):
-        clientes = DaoFornecedor.ler()
+        clientes = DaoPessoa.ler()
 
         if len(clientes) == 0:
             print('Lista de clientes vazia')
@@ -377,7 +378,7 @@ class ControllerFuncionario:
         if len(listaCpf) > 0:
             print('Cpf já existe')
         elif len(listaClt) > 0:
-            print('já eciste um funcionario com essa clt')
+            print('já existe um funcionario com essa clt')
         else:
             if len(cpf) == 11 and len(telefone) >= 10 and len(telefone) <= 11:
                 DaoFuncionario.salvar(Funcionario(clt, nome, telefone, cpf, email, endereco))
@@ -390,9 +391,8 @@ class ControllerFuncionario:
 
         est = list(filter(lambda x: x.nome == nomeAlterar, x))
         if len(est) > 0:
-                x = list(map(lambda x: Funcionario(
-                    novoClt, novoNome, novoTelefone, novoCpf, novoEmail, novoEndereco
-                    ) if x.nome else x, lista))
+            x = list(map(lambda x: Funcionario(novoClt, novoNome, novoTelefone, novoCpf, novoEmail, novoEndereco)
+            if x.nome == nomeAlterar else x, x))
 
         else:
              print('O funcionario que deseja alterar não existe')
@@ -404,7 +404,7 @@ class ControllerFuncionario:
                 arq.writelines('\n')
             print('Funcionario alterado com sucesso')
 
-    def remocerFuncionario(self, nome):
+    def removerFuncionario(self, nome):
         x = DaoFuncionario.ler()
 
         est = list(filter(lambda x: x.nome == nome, x))
@@ -424,7 +424,7 @@ class ControllerFuncionario:
             print('Funcionarios removido com sucesso')
 
     def mostrarFuncionarios(self):
-        funcionario = DaoFornecedor.ler()
+        funcionario = DaoFuncionario.ler()
 
         if len(funcionario) == 0:
             print('Lista de funcionarios vazia')

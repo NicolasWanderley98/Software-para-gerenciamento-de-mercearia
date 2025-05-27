@@ -23,7 +23,7 @@ class DaoCategoria:
 class DaoVenda:
     @classmethod
     def salvar(cls, venda: Venda):
-        with open('venda.txt', 'a') as arq:
+        with open('vendas.txt', 'a') as arq:
             arq.writelines(venda.itensVendido.nome + "|" + venda.itensVendido.preco + "|" +
                            venda.itensVendido.categoria + "|" + venda.vendedor + "|" +
                            venda.comprador + "|" + str(venda.quantidadeVendida) + "|" + venda.data)
@@ -31,7 +31,7 @@ class DaoVenda:
 
     @classmethod
     def ler(cls):
-        with open ('venda.txt', 'r') as arq:
+        with open ('vendas.txt', 'r') as arq:
             cls.venda = arq.readlines()
 
         cls.venda = list(map(lambda x: x.replace('\n', ''), cls.venda))
@@ -81,7 +81,7 @@ class DaoFornecedor:
         cls.fornecedores = list(map(lambda x: x.split('|'), cls.fornecedores))
         forn = []
         for i in cls.fornecedores:
-            forn.append(Estoque(Produtos(i[0], i[1], i[2]), i[3]))
+            forn.append(Fornecedor(i[0], i[1], i[2], i[3]))
 
         return forn
 
@@ -123,11 +123,14 @@ class DaoFuncionario:
         with open('funcionarios.txt', 'r') as arq:
             cls.funcionarios = arq.readlines()
 
-        cls.funcionarios = list(map(lambda x: x.replace('\n', ''), cls.funcionarios))
+        cls.funcionarios = list(map(lambda x: x.strip(), cls.funcionarios))
         cls.funcionarios = list(map(lambda x: x.split('|'), cls.funcionarios))
 
         funcionario = []
         for i in cls.funcionarios:
-            funcionario.append(Funcionario(i[0], i[1], i[2], i[3], i[4], i[5]))
+            if len(i) == 6:  # verifica se tem todos os campos
+                funcionario.append(Funcionario(i[0], i[1], i[2], i[3], i[4], i[5]))
+            else:
+                print(f" {i}")
 
         return funcionario
