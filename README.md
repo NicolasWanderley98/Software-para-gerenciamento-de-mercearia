@@ -66,11 +66,17 @@ Interface gráfica: Ao executar o script, a interface gráfica será aberta. Voc
 
 Estrutura de Diretórios
 Software-para-gerenciamento-de-mercearia/
+
 ├── main.py                # Arquivo principal que executa o software
+
 ├── database.db            # Banco de dados local SQLite para armazenar dados
+
 ├── requirements.txt       # Arquivo com as dependências do projeto (caso necessário)
+
 ├── imagens/               # Pasta com imagens (se houver, para o software)
+
 └── README.md              # Este arquivo com as instruções do projeto
+
 
 Exemplo de Código
 
@@ -127,6 +133,7 @@ Licença
 
 Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE
  para mais detalhes.
+ 
 
 Agradecimentos
 
