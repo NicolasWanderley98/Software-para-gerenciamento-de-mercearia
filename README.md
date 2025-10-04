@@ -1,3 +1,5 @@
+Software para Gerenciamento de Mercearia
+
 Este repositório contém o código de um software de gerenciamento de mercearia, desenvolvido para facilitar o controle de estoque, vendas e produtos em uma mercearia ou pequeno comércio. O objetivo principal do software é oferecer uma solução simples e eficiente para o gerenciamento do dia a dia do negócio.
 
 Descrição
